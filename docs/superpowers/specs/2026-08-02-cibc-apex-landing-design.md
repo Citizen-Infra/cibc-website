@@ -124,4 +124,4 @@ No CMS, blog, analytics, newsletter signup, or i18n. No dark mode — the kit de
 - Append `## Hindsight` to `cibc-brain/decisions/2026-08-02-citizeninfra-domain-map.md` — the apex is no longer deferred
 - Raise the button-contrast finding with Megan against `Citizen-Infra/CIBC-Branding`
 - Add `cibc-website` to `claude-config/docs/deployments.md`
-- Point `citizeninfra.org` + `www` at Netlify, replacing the GoDaddy forward planned in `avails#144`
+- Point `citizeninfra.org` + `www` at Netlify, replacing the GoDaddy forward planned in `cibc-brain#30 (private)`

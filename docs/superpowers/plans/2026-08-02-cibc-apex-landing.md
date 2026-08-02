@@ -321,7 +321,7 @@ Expected: FAIL — hero copy is not present.
 // Every URL here was verified live on 2026-08-02.
 // avails and community-admin still point at personal domains; they move
 // to avails.citizeninfra.org and admin.citizeninfra.org with the domain
-// migration (Citizen-Infra/avails#144). Update here, nowhere else.
+// migration (cibc-brain#30 (private)). Update here, nowhere else.
 export const links = {
   join:       { label: 'Join the club',  href: 'https://app.harmonica.chat/chat?s=hst_5a179a83a29c' },
   back:       { label: 'Back us',        href: 'https://opencollective.com/citizen-infra' },
@@ -882,9 +882,9 @@ These are **not** part of the build. File or do them after shipping.
 - [ ] Append `## Hindsight` to `cibc-brain/decisions/2026-08-02-citizeninfra-domain-map.md` — the apex is no longer deferred, it has a page
 - [ ] Open an issue on `Citizen-Infra/CIBC-Branding` with the button contrast finding (3.07:1 → 4.51:1) so `tokens.css` fixes it for every CIBC surface
 - [ ] Add `cibc-website` to `claude-config/docs/deployments.md`
-- [ ] Update `Citizen-Infra/avails#144` — the GoDaddy apex forward planned there is superseded by this site
+- [ ] Update `cibc-brain#30 (private)` — the GoDaddy apex forward planned there is superseded by this site
 - [ ] Ask Megan for a favicon and OG image; v1 ships without both
-- [ ] **`admin.zhgnv.com` and `noreply@cibc.zhgnv.com`** — Community Admin is a third personal-domain surface, and the second is the From address on mail to community organisers. Belongs on `avails#144`, which currently reads as if Avails were the only case
+- [ ] **`admin.zhgnv.com` and `noreply@cibc.zhgnv.com`** — Community Admin is a third personal-domain surface, and the second is the From address on mail to community organisers. Belongs on `cibc-brain#30 (private)`, which currently reads as if Avails were the only case
 - [ ] Decide whether `dear-neighbors` joins the grid — it is a public, active sibling of My Community and its omission is not currently a decision. One line in `src/data/projects.js`
 
 ---
