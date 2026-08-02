@@ -60,10 +60,12 @@ Every line is either sourced from existing CIBC material or marked as new for re
 | Slot | Text | Provenance |
 |---|---|---|
 | Eyebrow | Citizen Infrastructure Builders Club | Existing name |
-| Headline | We build tools that let communities act together. | **New — not yet approved as copy.** It appeared inside the option preview Artem selected on 2026-08-02, which is not the same as sign-off on the wording. Treat as a placeholder to confirm or replace. |
+| Headline | We build tools that let communities act together. | **New copy, approved by Artem 2026-08-02** on an explicit headline question. Chosen over "Technology for collective action" — see below. |
 | Sub | We build, learn, and teach how to use modern tools and protocols that serve mutualism and solidarity. | **Verbatim** from cibc.notion.site |
 
-The wiki's tagline "Technology for collective action" is **deliberately not reused** — it is the wiki's line, and reusing it recreates the duplication this design exists to avoid.
+**"Technology for collective action" is deliberately not used here, and the reason is not the one you would guess.** It is not the wiki's line — it is **CIBC's north star**, set with Megan at the 2026-06-05 branding workshop, which the wiki later adopted as its tagline. The apex arguably has the better claim to it.
+
+It was offered as a headline option and declined on 2026-08-02, because using it would require the wiki to give up its tagline, and that is a bigger change than this page should force. Worth revisiting if the wiki is ever rebranded.
 
 Project one-liners are taken from each repo's own GitHub description or README, not rewritten as marketing copy.
 
@@ -77,7 +79,7 @@ The 2026-07-24 decision established that **CIBC's scope is stewardship, not the 
 
 This page is the first place that clause gets tested. A "what we build" list that silently omits Book Power because it is not on `citizeninfra.org` would make the domain the boundary, one layer below the GitHub-org boundary that was already rejected.
 
-**Flagged for review:** if Book Power should not appear here, that is a real answer, but it should be a decision rather than an omission — and it would mean the stewardship clause needs revisiting.
+**Decided 2026-08-02 (Artem): include it**, in the main grid alongside the rest, linking out to `bookpower.org`. This page is where the stewardship clause becomes visible rather than merely written down.
 
 ## Links (all verified live 2026-08-02)
 
@@ -103,7 +105,7 @@ The kit specifies the primary button as cream text on clay `#C57B57` at `--text-
 
 0.94rem is not "large text" under WCAG (that needs 18.66px bold or 24px), so the 3:1 allowance does not apply.
 
-**Build with ink on clay.** It changes no palette value and touches one token role. **Raise it to Megan as a finding on her kit rather than a silent divergence** — she owns the identity, and a fix in `tokens.css` benefits every CIBC surface, not just this page.
+**Decided 2026-08-02 (Artem): build with ink on clay, and flag it to Megan.** It changes no palette value and touches one token role. Raising it as a finding on `CIBC-Branding` rather than diverging silently matters because she owns the identity — and a fix in `tokens.css` benefits every CIBC surface, not just this page. The build does not block on her reply.
 
 ## Out of scope
 
