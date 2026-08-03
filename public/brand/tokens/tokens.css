@@ -1,0 +1,172 @@
+/* ============================================================
+   CIBC Brand Kit · tokens.css
+   Single source of truth for the Citizen Infrastructure Builders
+   Club visual identity (Option A, the shipped direction).
+
+   HOW TO USE
+   1. Copy this file into your project.
+   2. Link it, then reference the --color-*, --font-*, --text-*,
+      --space-*, --radius-* variables everywhere. Do not hardcode
+      values; change them here and every surface follows.
+   3. Gulax is self-hosted (see ../fonts/gulax/). Space Grotesk,
+      Aldrich, and JetBrains Mono load from Google Fonts via the
+      @import below. Swap that for self-hosted copies if you need
+      to run offline.
+
+   No gradients. No drop shadows on components. Flat fills, soft
+   borders, pill buttons. Primary action = clay. Secondary = outline.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Aldrich&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@font-face {
+  font-family: "Gulax";
+  src: url("../fonts/gulax/gulax-regular.woff2") format("woff2"),
+       url("../fonts/gulax/gulax-regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* ---- Natural Palette (primitives) ---- */
+  --palette-paper:  #F2E8D4;  /* page background */
+  --palette-cream:  #FBF6EA;  /* card / surface */
+  --palette-ink:    #23291F;  /* text and headings (warm green-black) */
+  --palette-clay:   #C57B57;  /* primary accent (the orange) */
+  --palette-brass:  #B08D4F;  /* secondary accent */
+  --palette-sage:   #A7B0A0;  /* strong border */
+  --palette-line:   #D8C9AC;  /* soft border / hairline */
+  --palette-stone:  #7A7166;  /* muted / secondary text */
+
+  /* ---- Semantic roles (reference these in your UI) ---- */
+  --color-bg:            var(--palette-paper);
+  --color-surface:       var(--palette-cream);
+  --color-text:          var(--palette-ink);
+  --color-heading:       var(--palette-ink);
+  --color-text-muted:    var(--palette-stone);
+  --color-accent:        var(--palette-clay);   /* primary action */
+  --color-accent-deep:   #A8623F;               /* primary hover */
+  --color-accent-2:      var(--palette-brass);
+  --color-border:        var(--palette-line);
+  --color-border-strong: var(--palette-sage);
+
+  /* ---- Type ---- */
+  --font-display: "Gulax", ui-sans-serif, system-ui, sans-serif;
+  --font-body:    "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-eyebrow: "Aldrich", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  --text-display:    clamp(2.8rem, 7vw, 5rem);
+  --text-heading-xl: clamp(2rem, 4.6vw, 3rem);
+  --text-heading-lg: clamp(1.55rem, 3vw, 2rem);
+  --text-heading-md: clamp(1.25rem, 2.4vw, 1.55rem);
+  --text-card:       1.3rem;
+  --text-body-lg:    1.22rem;
+  --text-body:       1.06rem;
+  --text-body-sm:    0.94rem;
+  --text-eyebrow:    0.78rem;
+
+  --eyebrow-case:     uppercase;
+  --eyebrow-track:    0.28em;
+  --tracking-display: 0;
+
+  /* ---- Spacing ---- */
+  --space-xs: 4px;  --space-sm: 8px;  --space-md: 12px;  --space-base: 16px;
+  --space-lg: 24px; --space-xl: 32px; --space-2xl: 48px; --space-3xl: 64px;
+  --space-section: clamp(3.5rem, 8vw, 6rem);
+
+  /* ---- Radius ---- */
+  --radius-sm: 4px; --radius-md: 8px; --radius-lg: 16px; --radius-xl: 28px; --radius-full: 999px;
+}
+
+/* ============================================================
+   Base + components built on the tokens above. Optional: delete
+   this block if you only want the variables, but it is the
+   reference implementation of the shipped look.
+   ============================================================ */
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--color-heading);
+  line-height: 1.06;
+  letter-spacing: var(--tracking-display);
+}
+
+.eyebrow {
+  font-family: var(--font-eyebrow);
+  font-size: var(--text-eyebrow);
+  letter-spacing: var(--eyebrow-track);
+  text-transform: var(--eyebrow-case);
+  color: var(--color-accent);
+}
+
+/* Cards: flat cream surface, soft border, no shadow. */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+/* Buttons. Primary = solid clay. Secondary = outline. No gradients. */
+.btn {
+  -webkit-appearance: none;
+  appearance: none;
+  font-family: var(--font-body);
+  font-size: var(--text-body-sm);
+  font-weight: 600;
+  padding: 0.7em 1.2em;
+  border-radius: var(--radius-full);
+  border: 1.5px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  text-decoration: none;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.btn--primary {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border-color: var(--color-accent);
+}
+.btn--primary:hover {
+  background: var(--color-accent-deep);
+  border-color: var(--color-accent-deep);
+}
+.btn--secondary {
+  background: transparent;
+  color: var(--color-heading);
+  border-color: var(--color-heading);
+}
+.btn--secondary:hover {
+  background: var(--color-heading);
+  color: var(--color-surface);
+}
+
+/* Inputs: soft border, clay focus ring. */
+.control {
+  width: 100%;
+  font: inherit;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.65em 0.75em;
+}
+.control:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-accent) 20%, transparent);
+}
