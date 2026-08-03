@@ -10,3 +10,9 @@
 - **Decisions:** `site.css` served from `public/` and linked after tokens, so the override order is explicit and assertable rather than an implicit build artifact. Dropped the hero eyebrow — it repeated the wordmark and the kit's `.eyebrow` is 2.72:1.
 - **State:** Merged, not deployed. Found a second contrast failure the spec missed (`--color-text-muted`, most of the body copy) — three findings now on CIBC-Branding#1.
 - **Next:** Netlify site + DNS cutover, both dashboard jobs. Then the GoDaddy parking page on the apex is gone.
+
+## 2026-08-04 — apex live; the parking page is gone
+- **Done:** Netlify site `citizeninfra` created and deployed, custom domains attached, GitHub repo linked (a push now builds). Cloudflare apex cut over: deleted two proxied A records at `13.248.243.5`/`76.223.105.230` (AWS Global Accelerator = GoDaddy parking), created a proxied CNAME to `citizeninfra.netlify.app`. Added `netlify.toml` redirects for `www` and the `.netlify.app` host, then took over the four hyphenated-domain rules from cibc-wiki.
+- **Decisions:** Proxied rather than DNS-only, matching `wiki.` which already works against a Netlify origin. `force = true` + `:splat` copied from the wiki's file rather than rediscovered — `/privacy/my-community` is the Chrome Web Store URL and must survive a redirect.
+- **State:** `citizeninfra.org` 200 with a valid cert; `www`, `citizeninfra.netlify.app`, `citizen-infra.org` and `www.citizen-infra.org` all 301 to it; MX/SPF/DKIM untouched (16 → 15 zone records). cibc-brain#30 closed.
+- **Next:** Favicon + OG image still need Megan (#3). CIBC-Branding#1 contrast findings still open.
