@@ -3,4 +3,36 @@
   publish = "dist"
 
 [build.environment]
+  # Astro 6 requires Node >=22.12; "22" resolves to the latest 22.x on Netlify.
   NODE_VERSION = "22"
+
+# Three hosts serve this site and only one should be canonical. Setting a
+# primary custom domain in Netlify does NOT redirect the others — verified
+# 2026-08-03 after the apex cutover, when citizeninfra.org, www.citizeninfra.org
+# and citizeninfra.netlify.app all returned 200 with identical content.
+#
+# force = true is required: without it these lose to the static file that exists
+# at every path on the site, and the redirect silently never fires.
+# :splat preserves the path, so deep links survive instead of all landing on the
+# homepage — /privacy/my-community in particular, which is the URL published in
+# the Chrome Web Store listing for My Community.
+#
+# Same pattern and the same two gotchas as cibc-wiki/netlify.toml.
+
+[[redirects]]
+  from = "https://www.citizeninfra.org/*"
+  to = "https://citizeninfra.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.citizeninfra.org/*"
+  to = "https://citizeninfra.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://citizeninfra.netlify.app/*"
+  to = "https://citizeninfra.org/:splat"
+  status = 301
+  force = true
