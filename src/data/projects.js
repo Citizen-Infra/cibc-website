@@ -28,6 +28,13 @@ export const projects = [
     href: 'https://github.com/Citizen-Infra/my-community/releases/latest',
   },
   {
+    name: 'Dear Neighbors',
+    blurb: 'Neighborhood dashboard as a new tab — community-curated local news + participation opportunities.',
+    // The only project here already on the Chrome Web Store, so it links to the
+    // listing rather than a repo: it is the one a visitor can install in a click.
+    href: 'https://chromewebstore.google.com/detail/dear-neighbors/mofcajnlfddkgiibgodmdhghfiakgdab',
+  },
+  {
     name: 'Community Admin',
     blurb: 'Shared admin platform for community organisers to manage participation opportunities.',
     href: 'https://admin.citizeninfra.org',

@@ -42,14 +42,16 @@ test('both documented contrast overrides reach the build', () => {
     'the darkened muted-text override must ship');
 });
 
-test('all six projects render, including Book Power', () => {
+test('all seven projects render, including Book Power and Dear Neighbors', () => {
   const h = html();
-  for (const name of ['Avails', 'Allotment', 'My Community',
+  for (const name of ['Avails', 'Allotment', 'My Community', 'Dear Neighbors',
     'Community Admin', 'The wiki', 'Book Power']) {
     assert.ok(h.includes(name), `${name} must appear in the grid`);
   }
   assert.match(h, /href="https:\/\/bookpower\.org"/,
     'Book Power links out — the stewardship clause made visible');
+  assert.match(h, /chromewebstore\.google\.com\/detail\/dear-neighbors/,
+    'Dear Neighbors links to its store listing — the one installable in a click');
 });
 
 test('no card links to a dead, placeholder, or superseded host', () => {
