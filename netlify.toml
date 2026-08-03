@@ -36,3 +36,53 @@
   to = "https://citizeninfra.org/:splat"
   status = 301
   force = true
+
+# The hyphenated domain. It exists because the GitHub org is Citizen-Infra and
+# the wiki was citizen-infra.netlify.app, so people who know CIBC type the
+# hyphen. It is redirect-only and must never serve content.
+#
+# These four rules lived in cibc-wiki/netlify.toml until 2026-08-04, pointing at
+# the wiki — an explicit stopgap, because the apex was a GoDaddy parking page
+# and the wiki was the only real CIBC content on the web. That file carried the
+# instruction to move them here once this site shipped. This is that move.
+#
+# Netlify aliases moved with them: a redirect only fires on the site that
+# receives the request, so the rules are inert here until citizen-infra.org and
+# www.citizen-infra.org are aliases of THIS site rather than the wiki's. They
+# are deployed first on purpose — a hostname can only be claimed by one Netlify
+# site, so the swap has an unavoidable unclaimed window, and having the
+# destination already live keeps that window to the swap itself.
+#
+# :splat here, unlike the wiki version which deliberately dropped it. That
+# choice was right when the destination was the wiki, where an arbitrary
+# forwarded path would 404. The destination is now the mirror of this domain,
+# so citizen-infra.org/privacy/my-community should reach the privacy page
+# rather than the homepage.
+#
+# Netlify issues a real certificate for an alias, which is why these are here
+# rather than a GoDaddy forward: GoDaddy's forwarding is HTTP-only and every
+# current browser tries HTTPS first, so that redirect mostly never fired.
+
+[[redirects]]
+  from = "https://citizen-infra.org/*"
+  to = "https://citizeninfra.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://citizen-infra.org/*"
+  to = "https://citizeninfra.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://www.citizen-infra.org/*"
+  to = "https://citizeninfra.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.citizen-infra.org/*"
+  to = "https://citizeninfra.org/:splat"
+  status = 301
+  force = true
