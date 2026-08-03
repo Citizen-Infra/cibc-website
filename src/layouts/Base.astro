@@ -1,0 +1,26 @@
+---
+const { title, description, path = '/' } = Astro.props;
+const canonical = new URL(path, 'https://citizeninfra.org').href;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <link rel="canonical" href={canonical} />
+    <!-- tokens.css first, then site.css: the override order is the whole
+         point, so it is explicit here rather than implied by a bundler. -->
+    <link rel="stylesheet" href="/brand/tokens/tokens.css" />
+    <link rel="stylesheet" href="/styles/site.css" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,14 @@
+---
+import { links } from '../data/links.js';
+const routes = [links.wiki, links.telegram, links.events, links.recordings, links.code];
+---
+<section class="band" id="next">
+  <div class="wrap">
+    <h2>Where to go next</h2>
+    <ul class="routes">
+      {routes.map((l) => (
+        <li><a href={l.href}>{l.label}</a></li>
+      ))}
+    </ul>
+  </div>
+</section>

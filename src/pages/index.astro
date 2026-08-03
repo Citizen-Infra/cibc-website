@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import ProjectGrid from '../components/ProjectGrid.astro';
+import NextSteps from '../components/NextSteps.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+<Base
+  title="Citizen Infrastructure Builders Club"
+  description="We build, learn, and teach how to use modern tools and protocols that serve mutualism and solidarity."
+  path="/"
+>
+  <SiteHeader home={true} />
+  <Hero />
+  <ProjectGrid />
+  <NextSteps />
+  <SiteFooter />
+</Base>

@@ -1,0 +1,13 @@
+---
+// Band 1. A wordmark and nothing else — the spec asked for "CIBC wordmark, no
+// nav", and the restraint is the point: this page exists to route outward, so
+// it should not grow a menu implying somewhere internal to go.
+const { home = false } = Astro.props;
+---
+<div class="site-header">
+  <div class="wrap">
+    {home
+      ? <p class="wordmark">Citizen Infrastructure Builders Club</p>
+      : <p class="wordmark"><a href="/">Citizen Infrastructure Builders Club</a></p>}
+  </div>
+</div>
