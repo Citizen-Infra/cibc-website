@@ -2,6 +2,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { projects } from '../src/data/projects.js';
 
 const html = () => readFileSync('dist/index.html', 'utf8');
 const privacy = () => readFileSync('dist/privacy/my-community/index.html', 'utf8');
@@ -15,7 +16,7 @@ test('brand kit is vendored with the mirrored structure', () => {
   assert.ok(existsSync('dist/brand/fonts/gulax/OFL.txt'), 'OFL licence must ship with the font');
 });
 
-test('Open Manual loads local fonts, not the old kit or a font service', () => {
+test('Open Index loads local fonts, not the old kit or a font service', () => {
   const h = html();
   assert.doesNotMatch(h, /href="\/brand\/tokens\/tokens\.css"/);
   assert.doesNotMatch(h + css(), /fonts\.(googleapis|gstatic)\.com/);
@@ -33,8 +34,12 @@ test('tokens.css is unmodified — relative font path intact', () => {
     'the relative @font-face path must survive vendoring');
 });
 
-test('hero carries the approved copy and both CTAs', () => {
+test('the full club name leads the hero above the approved copy and both CTAs', () => {
   const h = html();
+  const heading = h.match(/<h1 id="page-title">([\s\S]*?)<\/h1>/)?.[1];
+  assert.ok(heading);
+  assert.equal(heading.replace(/<[^>]+>/g, ''), 'Citizen InfrastructureBuilders Club');
+  assert.match(heading, /Infra<wbr\s*\/?\s*>structure/);
   assert.match(h, /We build tools that let communities act together\./);
   assert.match(h, /modern tools and protocols\s+that serve mutualism and solidarity/);
   assert.match(h, /href="https:\/\/app\.harmonica\.chat\/chat\?s=hst_5a179a83a29c"/);
@@ -43,9 +48,10 @@ test('hero carries the approved copy and both CTAs', () => {
 
 test('semantic normal, hover, active and focus roles reach the build', () => {
   const styles = css();
-  for (const token of ['--cibc-color-text-muted', '--cibc-color-on-accent',
-    '--cibc-color-accent-hover', '--cibc-color-accent-active', '--cibc-color-focus',
-    '--cibc-data-on-high', '--cibc-duration-fast']) {
+  for (const token of ['--cibc-color-on-action', '--cibc-color-action-hover',
+    '--cibc-color-action-active', '--cibc-color-focus', '--cibc-color-surface-strong',
+    '--cibc-color-link-inverse-hover', '--cibc-color-focus-inverse',
+    '--cibc-color-focus-on-vivid', '--cibc-duration-fast']) {
     assert.ok(styles.includes(token), `${token} must ship`);
   }
   assert.match(styles, /focus-visible/);
@@ -65,7 +71,7 @@ test('all seven projects render, including Book Power and Dear Neighbors', () =>
     'Dear Neighbors links to its store listing — the one installable in a click');
 });
 
-test('no card links to a dead, placeholder, or superseded host', () => {
+test('no entry links to a placeholder or superseded host', () => {
   const h = html();
   assert.doesNotMatch(h, /href="#"/);
   assert.doesNotMatch(h, /example\.com/);
@@ -133,40 +139,41 @@ test('the homepage has one main landmark, one H1, and unique IDs', () => {
   assert.match(h, /href="#main"/);
 });
 
-test('all examples are real sections with usable no-script anchor navigation', () => {
+test('all seven projects have direct links and native description disclosures without script', () => {
   const h = html();
-  for (const id of ['avails', 'allotment', 'book-power']) {
-    assert.ok(h.includes(`href="#example-${id}"`));
-    assert.match(h, new RegExp(`<section[^>]+id="example-${id}"[^>]*>`));
-    assert.doesNotMatch(h, new RegExp(`<section[^>]+id="example-${id}"[^>]*\\shidden`));
+  const index = h.match(/<ul class="project-list">([\s\S]*?)<\/ul>/)?.[1];
+  assert.ok(index);
+  assert.equal((index.match(/<li>/g) || []).length, 7);
+  for (const project of projects) {
+    assert.ok(index.includes(`href="${project.href}">${project.name}</a>`));
+    assert.ok(index.includes(`aria-describedby="project-${project.id}">${project.purpose}</summary>`));
+    assert.ok(index.includes(project.blurb));
   }
-  assert.match(h, /Illustrative availability, not a live poll/);
-  assert.match(h, /not a real draw/);
-  assert.match(h, /not an AI response/);
-  assert.match(h, /<table class="availability-table"/);
-  assert.match(h, /scope="col"/);
-  assert.match(h, /scope="row"/);
+  assert.equal((index.match(/<details class="project-details">/g) || []).length, 7);
+  assert.doesNotMatch(h, /<script|role="tab|data-tool-guide|example-avails|availability-table|Illustrative availability|not a real draw/);
 });
 
-test('the availability example is internally consistent and explicitly synthetic', async () => {
-  const { availability } = await import('../src/data/projects.js');
-  assert.equal(availability.days.length, 4);
-  for (const row of availability.rows) {
-    assert.equal(row.counts.length, availability.days.length);
-    assert.ok(row.counts.every((count) => Number.isInteger(count) && count >= 0 && count <= 3));
-  }
-  assert.equal(availability.rows.find((row) => row.time === '11:00').counts[1], 3);
-  assert.equal(availability.rows.find((row) => row.time === '12:00').counts[2], 3);
+test('composition uses the display scale, large supporting text and responsive unboxed index', () => {
+  const source = readFileSync('src/styles/site.css', 'utf8');
+  assert.match(source, /\.intro h1\s*\{[^}]*font-size: var\(--cibc-text-display\)/);
+  assert.match(source, /\.project-details\s*\{[^}]*font-size: var\(--cibc-text-ui\)/);
+  assert.match(source, /\.project-list\s*\{[^}]*grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.match(source, /\.project-list, \.next-layout\s*\{[^}]*grid-template-columns: minmax\(0, 1fr\)/);
+  assert.match(source, /body\s*\{[^}]*overflow-wrap: anywhere/);
+  assert.match(source, /\.club-name-word\s*\{[^}]*display: inline-block;[^}]*max-width: 100%/);
+  assert.match(source, /repeat\(auto-fit, minmax\(min\(100%, 12rem\), 1fr\)\)/);
+  assert.doesNotMatch(source, /overflow-x:\s*hidden|height:\s*(?:844|900)px|font-size:\s*(?:0\.|1rem)/);
 });
 
 test('design process metadata never reaches the built pages', () => {
-  assert.doesNotMatch(html() + privacy(), /Direction contract|SEED REFERENCE|seed:011096|FINISH:|OWN-WORLD|impeccable\/mocks/);
+  assert.doesNotMatch(html() + privacy(), /Direction contract|SEED REFERENCE|seed:[\da-f]{16}|FINISH:|OWN-WORLD|impeccable\/mocks/);
 });
 
-test('scroll regions contain the positioned accessible table labels', () => {
+test('the permissions table scrolls in a labelled keyboard-focusable region', () => {
   const styles = readFileSync('src/styles/site.css', 'utf8');
   assert.match(styles, /\.table-scroll\s*\{[^}]*position:\s*relative;[^}]*overflow-x:\s*auto/);
-  assert.match(html(), /class="table-scroll" role="region" tabindex="0" aria-label="Example availability"/);
+  assert.match(privacy(), /class="table-scroll" role="region" tabindex="0" aria-label="Extension permissions"/);
+  assert.match(privacy(), /<th scope="col">Permission<\/th>/);
 });
 
 test('favicon and social-preview PNGs ship at their declared dimensions', () => {

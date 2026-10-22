@@ -1,10 +1,12 @@
 ---
 import '@citizen-infra/design-system/tokens.css';
 import '../styles/site.css';
+import tokens from '@citizen-infra/design-system/tokens.css?raw';
 const { title, description, path = '/' } = Astro.props;
 const canonical = new URL(path, 'https://citizeninfra.org').href;
 const image = new URL('/og-image.png', 'https://citizeninfra.org').href;
 const imageAlt = 'Citizen Infrastructure Builders Club — We build tools that let communities act together.';
+const themeColor = tokens.match(/--cibc-color-page:\s*(#[\da-f]{6})/i)?.[1];
 ---
 <!doctype html>
 <html lang="en">
@@ -31,7 +33,7 @@ const imageAlt = 'Citizen Infrastructure Builders Club — We build tools that l
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
-    <meta name="theme-color" content="#EDF2F5" />
+    <meta name="theme-color" content={themeColor} />
     <link rel="preload" href="/fonts/public-sans-latin-normal.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>

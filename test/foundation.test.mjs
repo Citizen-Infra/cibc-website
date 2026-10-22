@@ -50,6 +50,11 @@ for (const status of ['success', 'warning', 'danger', 'info']) {
 for (const level of ['empty', 'low', 'mid', 'high']) {
   textPairs.push([`data-on-${level}`, `data-${level}`]);
 }
+for (const field of ['strong', 'warm', 'fresh']) {
+  textPairs.push([`color-on-surface-${field}`, `color-surface-${field}`]);
+}
+textPairs.push(['color-link-inverse', 'color-surface-strong']);
+textPairs.push(['color-link-inverse-hover', 'color-surface-strong']);
 
 const boundaryPairs = [];
 for (const foreground of ['focus', 'control-border', 'action']) {
@@ -59,6 +64,10 @@ for (const foreground of ['focus', 'control-border', 'action']) {
 }
 for (const status of ['success', 'warning', 'danger', 'info']) {
   boundaryPairs.push([`color-${status}-border`, `color-${status}-surface`]);
+}
+boundaryPairs.push(['color-focus-inverse', 'color-surface-strong']);
+for (const field of ['warm', 'fresh']) {
+  boundaryPairs.push(['color-focus-on-vivid', `color-surface-${field}`]);
 }
 
 test('light and dark expose the same namespaced theme contract', () => {

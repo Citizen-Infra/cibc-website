@@ -1,18 +1,19 @@
 ---
 import { projects, siteCopy } from '../data/projects.js';
 ---
-<section class="project-directory wrap section-space" id="what-we-build" aria-labelledby="projects-heading">
-  <div class="section-heading">
+<section class="project-directory" id="what-we-build" aria-labelledby="projects-heading">
+  <div class="wrap">
     <h2 id="projects-heading">{siteCopy.projectsTitle}</h2>
-    <p>{siteCopy.projectsIntroduction}</p>
-  </div>
     <ul class="project-list">
       {projects.map((p) => (
         <li>
-          <p class="project-purpose">{p.purpose}</p>
-          <h3><a href={p.href}>{p.name}</a></h3>
-          <p class="project-description">{p.blurb}</p>
+          <h3 id={`project-${p.id}`}><a href={p.href}>{p.name}</a></h3>
+          <details class="project-details">
+            <summary aria-describedby={`project-${p.id}`}>{p.purpose}</summary>
+            <p class="project-description">{p.blurb}</p>
+          </details>
         </li>
       ))}
     </ul>
+  </div>
 </section>

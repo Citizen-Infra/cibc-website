@@ -101,9 +101,9 @@ const permissions = [
       </ul>
 
       <h2>Permissions, and why each one exists</h2>
-      <div class="table-scroll">
+      <div class="table-scroll" role="region" tabindex="0" aria-label="Extension permissions">
         <table>
-          <thead><tr><th>Permission</th><th>Why</th></tr></thead>
+          <thead><tr><th scope="col">Permission</th><th scope="col">Why</th></tr></thead>
           <tbody>
             {permissions.map(([name, why]) => (
               <tr><td>{name}</td><td>{why}</td></tr>

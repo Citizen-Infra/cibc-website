@@ -3,7 +3,7 @@ import { readFileSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import test from 'node:test';
 
-const revision = '0671af3fdd6e45c649718bdcab0c6da4562372d2';
+const revision = '6df5682711d11d1dde20453d0e06a78aca48b34f';
 const spec = `git+https://github.com/Citizen-Infra/design-system.git#${revision}`;
 const pkg = JSON.parse(readFileSync('package.json', 'utf8'));
 const lock = JSON.parse(readFileSync('package-lock.json', 'utf8'));
@@ -17,6 +17,7 @@ test('the shared foundation is pinned to one full HTTPS Git revision in manifest
   assert.equal(lock.packages['node_modules/@citizen-infra/design-system'].resolved, spec);
   const installed = JSON.parse(readFileSync(new URL('package.json', dependencyRoot), 'utf8'));
   assert.equal(installed.name, '@citizen-infra/design-system');
+  assert.equal(installed.version, '0.2.0-draft.1');
   assert.equal(installed.version, lock.packages['node_modules/@citizen-infra/design-system'].version);
 });
 
@@ -40,8 +41,13 @@ test('the serving copies of brand assets match the pinned foundation', () => {
   }
 });
 
-test('the local authoring tool resolves the pinned palette rather than a removed snapshot', () => {
-  const renderer = readFileSync('scripts/render-brand-assets.mjs', 'utf8');
-  assert.match(renderer, /import\.meta\.resolve\('@citizen-infra\/design-system\/tokens\.css'\)/);
-  assert.doesNotMatch(renderer, /readFile\(resolve\(root, 'docs\/design\/foundations\/tokens\.css'\)/);
+test('the explicit sync helper copies upstream artwork and provenance without an independent renderer', () => {
+  assert.equal(existsSync('scripts/render-brand-assets.mjs'), false);
+  const helper = readFileSync('scripts/sync-foundation-assets.mjs', 'utf8');
+  assert.match(helper, /import\.meta\.resolve\('@citizen-infra\/design-system\/tokens\.css'\)/);
+  assert.match(helper, /copyFile/);
+  assert.doesNotMatch(helper, /playwright|chromium|createServer/);
+  assert.equal(hash(readFileSync('assets/brand/provenance.json')), hash(readFileSync(new URL('brand/provenance.json', dependencyRoot))));
+  const provenance = JSON.parse(readFileSync('assets/brand/provenance.json', 'utf8'));
+  assert.equal(provenance.tokensSHA256, hash(readFileSync(tokens)));
 });
