@@ -4,3 +4,11 @@ dist/
 
 # Local Netlify folder
 .netlify
+
+# Local filesystem and authoring/session artifacts, not website deliverables.
+.DS_Store
+.herdr-web-ui/
+.impeccable/questions/
+.impeccable/review/
+.impeccable/mocks/
+.impeccable/surfaces/

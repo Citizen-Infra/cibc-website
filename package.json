@@ -11,5 +11,8 @@
   },
   "devDependencies": {
     "astro": "^6.0.0"
+  },
+  "dependencies": {
+    "@citizen-infra/design-system": "git+https://github.com/Citizen-Infra/design-system.git#0671af3fdd6e45c649718bdcab0c6da4562372d2"
   }
 }

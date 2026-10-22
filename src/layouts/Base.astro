@@ -1,6 +1,10 @@
 ---
+import '@citizen-infra/design-system/tokens.css';
+import '../styles/site.css';
 const { title, description, path = '/' } = Astro.props;
 const canonical = new URL(path, 'https://citizeninfra.org').href;
+const image = new URL('/og-image.png', 'https://citizeninfra.org').href;
+const imageAlt = 'Citizen Infrastructure Builders Club — We build tools that let communities act together.';
 ---
 <!doctype html>
 <html lang="en">
@@ -13,11 +17,22 @@ const canonical = new URL(path, 'https://citizeninfra.org').href;
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <link rel="canonical" href={canonical} />
-    <!-- tokens.css first, then site.css: the override order is the whole
-         point, so it is explicit here rather than implied by a bundler. -->
-    <link rel="stylesheet" href="/brand/tokens/tokens.css" />
-    <link rel="stylesheet" href="/styles/site.css" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-16.png" type="image/png" sizes="16x16" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <meta name="theme-color" content="#EDF2F5" />
+    <link rel="preload" href="/fonts/public-sans-latin-normal.woff2" as="font" type="font/woff2" crossorigin />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

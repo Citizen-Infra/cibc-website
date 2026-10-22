@@ -1,13 +1,16 @@
 ---
-// Band 1. A wordmark and nothing else — the spec asked for "CIBC wordmark, no
-// nav", and the restraint is the point: this page exists to route outward, so
-// it should not grow a menu implying somewhere internal to go.
+import { links } from '../data/links.js';
 const { home = false } = Astro.props;
 ---
-<div class="site-header">
-  <div class="wrap">
-    {home
-      ? <p class="wordmark">Citizen Infrastructure Builders Club</p>
-      : <p class="wordmark"><a href="/">Citizen Infrastructure Builders Club</a></p>}
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="wordmark" href="/" aria-label="Citizen Infrastructure Builders Club — home">
+      Citizen Infrastructure<br />Builders Club
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <a class="nav-tools" href={home ? '#what-we-build' : '/#what-we-build'}>Tools</a>
+      <a class="nav-wiki" href={links.wiki.href}>Wiki</a>
+      <a class="button button-accent" href={links.join.href}>{links.join.label}</a>
+    </nav>
   </div>
-</div>
+</header>

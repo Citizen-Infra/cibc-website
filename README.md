@@ -2,69 +2,41 @@
 
 The Citizen Infrastructure Builders Club front door — [citizeninfra.org](https://citizeninfra.org).
 
-Astro static site, deployed to Netlify on push to `main`.
+A static Astro website using the Open Manual identity. Netlify builds `main` according to `netlify.toml`.
 
-## Develop
+## Develop and check
 
-```bash
-npm install
-npm run dev      # http://localhost:4321
-npm run build    # → dist/
-npm test         # assertions against the built output
+Requires Node ≥22.12.
+
+```sh
+npm ci
+npm run dev
+npm run build
+npm test
 ```
 
-`npm test` runs against `dist/`, so build first. It asserts the vendored brand
-kit survived, both contrast overrides shipped, every destination is linked, no
-superseded personal domain crept back in, and each page carries its own
-canonical.
+Build before testing: the assertions inspect `dist/` as well as the installed foundation. Tests cover the approved copy, seven project destinations, privacy route/canonicals, progressive examples, local assets, and semantic contrast/state roles. Automated checks do not constitute full WCAG certification.
 
-## The brand kit is vendored, not authored
+## Shared foundation
 
-`public/brand/` mirrors [`Citizen-Infra/CIBC-Branding`](https://github.com/Citizen-Infra/CIBC-Branding).
-`tokens/tokens.css` is byte-identical to upstream and **must never be edited** —
-its `@font-face` uses a relative `../fonts/gulax/` path, so the `tokens/` and
-`fonts/` sibling structure is load-bearing. Copying it flat and patching the
-path is how a design system quietly forks.
+`src/layouts/Base.astro` imports `@citizen-infra/design-system/tokens.css` from [Citizen-Infra/design-system](https://github.com/Citizen-Infra/design-system), pinned in both package manifests to immutable HTTPS Git revision `0671af3fdd6e45c649718bdcab0c6da4562372d2`. There is no separate local token authority or npm-registry dependency for the foundation.
 
-Every override lives in `public/styles/site.css` and carries a comment saying
-why. `site.css` is served from `public/` and linked *after* `tokens.css` rather
-than bundled, so the cascade order the overrides depend on is visible in the
-HTML and assertable by a test.
+`src/styles/site.css` owns website-specific composition and component treatments. Serving copies of Public Sans and the four PNG brand assets remain under `public/` to keep their URLs stable; tests require byte identity with the pinned dependency. Fonts and brand assets load locally, not through a runtime CDN. The site is light-only; available dark foundation tokens do not imply a website theme switch.
 
-To re-sync: re-copy the files, then `npm test` — a test asserts the relative
-font path survived.
+To update, choose an explicit new foundation revision, update both manifests, refresh any changed serving copies with their licences/provenance, and run a clean install, build, and tests. Inspect affected rendered states whenever values or assets change. Other CIBC projects adopt the shared source independently; publishing this website does not migrate them.
 
-## Three accessibility findings against the kit
+## Content and interaction
 
-All raised upstream on `CIBC-Branding`; a fix there benefits every CIBC surface.
+Project names, purposes, original blurbs, canonical URLs, and the three illustrative examples live in `src/data/projects.js`. Other destinations live in `src/data/links.js`.
 
-| Kit element | Contrast | Status here |
-|---|---|---|
-| `.btn--primary` — cream on clay | 3.07:1 | Overridden to ink on clay, 4.50:1 |
-| `--color-text-muted` on page/card | 3.94:1 / 4.44:1 | Overridden to `#70675C`, 4.56:1 / 5.15:1 |
-| `.eyebrow` — clay on paper | 2.72:1 | Not used on this site |
+`ToolGuide.astro` progressively enhances ordinary anchors and visible sections into keyboard-accessible tabs. Without JavaScript all examples remain readable. Example data is explicitly synthetic: the website does not create polls, execute a draw, or send AI requests. Wide data tables scroll within labelled keyboard-focusable regions rather than requiring smaller text or hidden document overflow.
 
-AA needs 4.5:1, and none of these qualify as large text.
+## Privacy policy
 
-## Content
+`/privacy/my-community` renders the extension policy required by its Chrome Web Store listing. The source of truth remains `my-community/docs/privacy-policy.md`; policy-content changes must be coordinated there. The Open Manual redesign changes presentation, not that policy's text or date.
 
-All copy and URLs live in `src/data/projects.js` and `src/data/links.js`.
-Change them there, nowhere else.
+## Assets and licences
 
-## The privacy policy
+The site supplies 16/32px favicons, a 180px Apple touch icon, and a 1200×630 social-preview PNG, with OG/Twitter metadata on both pages. Source and notices: [`assets/brand/README.md`](assets/brand/README.md).
 
-`/privacy/my-community` publishes the My Community extension's privacy policy,
-required by its Chrome Web Store listing
-([my-community#90](https://github.com/Citizen-Infra/my-community/issues/90)).
-The source of truth is `docs/privacy-policy.md` in that repo; this is the
-published rendering, and the two must be updated together.
-
-## A note on checking this page visually
-
-Headless Chromium on Windows clamps the window to a minimum width, so
-`--window-size=360` lays the page out wider and crops the capture — it looks
-exactly like a horizontal overflow that is not there. To measure a real narrow
-viewport, load the page in a `360px` iframe and read
-`documentElement.scrollWidth` against `innerWidth`. Also pass
-`--virtual-time-budget`, or the screenshot catches fallback fonts before Gulax
-loads.
+Public Sans font binaries retain their SIL Open Font License under `public/fonts/`. Newly authored shared Open Manual assets are MIT-licensed in the design-system repository. Legacy `public/brand/` files remain unmodified with their original licence history and attribution, but are not loaded by the current presentation. Do not relicense or silently modify those legacy files.

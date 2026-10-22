@@ -1,22 +1,7 @@
 ---
-import { links } from '../data/links.js';
+import { siteCopy } from '../data/projects.js';
 ---
-<header class="band hero" id="main">
-  <div class="wrap">
-    {/* No eyebrow. The spec called for one carrying the club's name, but the
-        header wordmark two lines above says exactly that, and the rendered
-        page read as a stutter. The kit's .eyebrow is also clay on paper —
-        2.72:1 at 0.78rem, a worse failure than the button one the spec did
-        catch — so the subtraction removes a duplicate and an accessibility
-        defect at once. Raised upstream with the other two findings. */}
-    <h1 class="hero__headline">We build tools that let communities act together.</h1>
-    <p class="hero__sub">
-      We build, learn, and teach how to use modern tools and protocols
-      that serve mutualism and solidarity.
-    </p>
-    <p class="hero__actions">
-      <a class="btn btn--primary" href={links.join.href}>{links.join.label}</a>
-      <a class="btn btn--secondary" href={links.back.href}>{links.back.label}</a>
-    </p>
-  </div>
-</header>
+<section class="intro wrap" aria-labelledby="page-title">
+  <h1 id="page-title">{siteCopy.headline}</h1>
+  <p>{siteCopy.introduction}</p>
+</section>

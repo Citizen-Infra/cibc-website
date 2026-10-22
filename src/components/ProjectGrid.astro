@@ -1,16 +1,18 @@
 ---
-import { projects } from '../data/projects.js';
+import { projects, siteCopy } from '../data/projects.js';
 ---
-<section class="band" id="what-we-build">
-  <div class="wrap">
-    <h2>What we build</h2>
-    <ul class="grid">
+<section class="project-directory wrap section-space" id="what-we-build" aria-labelledby="projects-heading">
+  <div class="section-heading">
+    <h2 id="projects-heading">{siteCopy.projectsTitle}</h2>
+    <p>{siteCopy.projectsIntroduction}</p>
+  </div>
+    <ul class="project-list">
       {projects.map((p) => (
-        <li class="card">
-          <h3 class="card__name"><a href={p.href}>{p.name}</a></h3>
-          <p class="card__blurb">{p.blurb}</p>
+        <li>
+          <p class="project-purpose">{p.purpose}</p>
+          <h3><a href={p.href}>{p.name}</a></h3>
+          <p class="project-description">{p.blurb}</p>
         </li>
       ))}
     </ul>
-  </div>
 </section>

@@ -1,17 +1,17 @@
 ---
 import { links } from '../data/links.js';
 ---
-<footer class="band site-footer">
-  <div class="wrap">
+<footer class="site-footer">
+  <div class="wrap footer-inner">
     <p>
       <a href={links.code.href}>GitHub</a> ·
       <a href={links.back.href}>Open Collective</a> ·
       <a href="/privacy/my-community">Privacy</a>
     </p>
-    <p class="credit">
-      Brand by Megan Ducote —
-      <a href="https://github.com/Citizen-Infra/CIBC-Branding">CIBC Brand Kit</a>,
-      CC BY-SA 4.0.
-    </p>
+    <details class="credits">
+      <summary>Credits and licences</summary>
+      <p>Public Sans is provided under the <a href="/fonts/OFL-Public-Sans.txt">SIL Open Font License</a>.</p>
+      <p>Legacy brand assets by Megan Ducote are retained under <a href="https://github.com/Citizen-Infra/CIBC-Branding">CIBC Brand Kit</a>, CC BY-SA 4.0. The current presentation uses Open Manual.</p>
+    </details>
   </div>
 </footer>

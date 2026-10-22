@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import Hero from '../components/Hero.astro';
+import ToolGuide from '../components/ToolGuide.astro';
 import ProjectGrid from '../components/ProjectGrid.astro';
 import NextSteps from '../components/NextSteps.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -12,8 +13,11 @@ import SiteFooter from '../components/SiteFooter.astro';
   path="/"
 >
   <SiteHeader home={true} />
-  <Hero />
-  <ProjectGrid />
-  <NextSteps />
+  <main id="main">
+    <Hero />
+    <ToolGuide />
+    <ProjectGrid />
+    <NextSteps />
+  </main>
   <SiteFooter />
 </Base>
