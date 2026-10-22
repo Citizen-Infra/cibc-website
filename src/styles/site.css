@@ -36,11 +36,13 @@ summary:hover { color: var(--cibc-color-link-hover); }
 .header-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: var(--cibc-space-6); padding-block: var(--cibc-space-6); }
 .wordmark { display: inline-block; color: var(--cibc-color-text); text-decoration: none; font-size: 1.125rem; font-weight: var(--cibc-weight-bold); line-height: 1.25; letter-spacing: -0.025em; }
 .site-nav { display: flex; align-items: center; gap: var(--cibc-space-8); font-size: var(--cibc-text-ui); }
-.site-nav > a:not(.button) { padding-block: var(--cibc-space-3); text-decoration: none; }
 .button { display: inline-flex; justify-content: center; align-items: center; min-height: var(--cibc-control-height); padding: var(--cibc-space-3) var(--cibc-space-6); border-radius: var(--cibc-radius-control); font-size: var(--cibc-text-ui); line-height: var(--cibc-leading-ui); font-weight: var(--cibc-weight-medium); text-decoration: none; transition: background-color var(--cibc-duration-fast) var(--cibc-ease-out); }
 .button-accent { background: var(--cibc-color-accent); color: var(--cibc-color-on-accent); }
 .button-accent:hover { background: var(--cibc-color-accent-hover); color: var(--cibc-color-on-accent); }
 .button-accent:active { background: var(--cibc-color-accent-active); }
+.button-support { padding-block: calc(var(--cibc-space-3) - 1px); border: 1px solid var(--cibc-color-control-border); background: transparent; color: var(--cibc-color-link); }
+.button-support:hover { background: var(--cibc-color-surface); color: var(--cibc-color-link-hover); }
+.button-support:active { background: var(--cibc-color-selected); }
 .intro { padding-block: var(--cibc-space-12) var(--cibc-space-8); }
 .intro h1 { max-width: 27ch; font-size: var(--cibc-text-page); line-height: var(--cibc-leading-display); }
 .intro p { max-width: 80ch; margin-top: var(--cibc-space-6); font-size: var(--cibc-text-lead); color: var(--cibc-color-text-secondary); }
@@ -150,7 +152,6 @@ abbr[title] { text-decoration: none; }
   .header-inner { gap: var(--cibc-space-4); padding-block: var(--cibc-space-4); }
   .wordmark { font-size: var(--cibc-text-ui); }
   .site-nav { gap: var(--cibc-space-3); }
-  .nav-tools, .nav-wiki { display: none; }
   .button { padding-inline: var(--cibc-space-4); }
   .intro { padding-block: var(--cibc-space-8); }
   .intro p { font-size: var(--cibc-text-body); margin-top: var(--cibc-space-4); }

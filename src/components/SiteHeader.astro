@@ -1,6 +1,5 @@
 ---
 import { links } from '../data/links.js';
-const { home = false } = Astro.props;
 ---
 <header class="site-header">
   <div class="wrap header-inner">
@@ -8,8 +7,7 @@ const { home = false } = Astro.props;
       Citizen Infrastructure<br />Builders Club
     </a>
     <nav class="site-nav" aria-label="Main navigation">
-      <a class="nav-tools" href={home ? '#what-we-build' : '/#what-we-build'}>Tools</a>
-      <a class="nav-wiki" href={links.wiki.href}>Wiki</a>
+      <a class="button button-support" href={links.support.href}>{links.support.label}</a>
       <a class="button button-accent" href={links.join.href}>{links.join.label}</a>
     </nav>
   </div>

@@ -52,7 +52,7 @@ export const projects = [
   {
     id: 'wiki',
     purpose: 'Explore the ideas and methods',
-    name: 'The wiki',
+    name: 'Citizen Infra Wiki',
     blurb: 'Citizen Infrastructure — a free, public resource for citizens.',
     href: 'https://wiki.citizeninfra.org',
   },

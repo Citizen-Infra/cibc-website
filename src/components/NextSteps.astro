@@ -1,14 +1,14 @@
 ---
 import { links } from '../data/links.js';
 import { siteCopy } from '../data/projects.js';
-const routes = [links.wiki, links.telegram, links.events, links.recordings, links.code];
+const routes = [links.telegram, links.events, links.recordings, links.code];
 ---
 <section class="next-section section-space" id="next" aria-labelledby="next-heading">
   <div class="wrap next-layout">
     <div class="next-intro">
       <h2 id="next-heading">{siteCopy.nextTitle}</h2>
       <p>{siteCopy.nextIntroduction}</p>
-      <div class="participation-links"><a class="button button-accent" href={links.join.href}>{links.join.label}</a><a href={links.back.href}>{links.back.label}</a></div>
+      <div class="participation-links"><a class="button button-accent" href={links.join.href}>{links.join.label}</a><a href={links.support.href}>{links.support.label}</a></div>
     </div>
     <ul class="routes">
       {routes.map((l) => (

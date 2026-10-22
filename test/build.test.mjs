@@ -56,7 +56,7 @@ test('semantic normal, hover, active and focus roles reach the build', () => {
 test('all seven projects render, including Book Power and Dear Neighbors', () => {
   const h = html();
   for (const name of ['Avails', 'Allotment', 'My Community', 'Dear Neighbors',
-    'Community Admin', 'The wiki', 'Book Power']) {
+    'Community Admin', 'Citizen Infra Wiki', 'Book Power']) {
     assert.ok(h.includes(name), `${name} must appear in the grid`);
   }
   assert.match(h, /href="https:\/\/bookpower\.org"/,
@@ -194,4 +194,24 @@ test('both pages declare local favicons and absolute share-image metadata', () =
     assert.match(page, /name="twitter:image" content="https:\/\/citizeninfra\.org\/og-image\.png"/);
     assert.match(page, /property="og:image:alt" content="Citizen Infrastructure Builders Club/);
   }
+});
+
+test('navigation and footer use the approved names and destinations', () => {
+  for (const page of [html(), privacy()]) {
+    const navigation = page.match(/<nav class="site-nav"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+    assert.ok(navigation, 'main navigation exists');
+    assert.match(navigation, /class="button button-support" href="https:\/\/opencollective\.com\/citizen-infra">Support<\/a>/);
+    assert.match(navigation, />Join the club<\/a>/);
+    assert.doesNotMatch(navigation, /wiki\.citizeninfra\.org|>Tools<|>Wiki</);
+    const footer = page.match(/<footer class="site-footer"[^>]*>([\s\S]*?)<\/footer>/)?.[1];
+    assert.ok(footer);
+    assert.match(footer, /href="https:\/\/opencollective\.com\/citizen-infra">Support<\/a>/);
+    assert.doesNotMatch(footer, /wiki\.citizeninfra\.org|Back us/);
+    assert.doesNotMatch(page, />The wiki<|Back us/);
+  }
+  const next = html().match(/<section class="next-section[^>]*>([\s\S]*?)<\/section>/)?.[1];
+  assert.ok(next);
+  assert.doesNotMatch(next, /wiki\.citizeninfra\.org/);
+  assert.match(next, /href="https:\/\/opencollective\.com\/citizen-infra">Support<\/a>/);
+  assert.match(html(), /href="https:\/\/wiki\.citizeninfra\.org">Citizen Infra Wiki<\/a>/);
 });
